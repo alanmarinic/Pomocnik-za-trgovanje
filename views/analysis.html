@@ -6,8 +6,9 @@
   <div class="clearfix">
     <div class="box">
       <form action="{{url('analyze_f')}}" method="post">
-        <label for="strategy">Strategija:</label>
+        <label for="strategy">Strategija: <b class="opozorilo">{{sporocilo}}</b></label>
           <select class="select-analiza" name="strategy">
+            <option value="" disabled selected>{{izbrana}}</option>
             % for strategija in strategy:
             <option value="{{strategija}}">{{strategija}}</option>
             % end
@@ -36,6 +37,7 @@
       </form>
     </div>
     <div class="box" style="text-align: center;">
+      <p>Izbrana strategija: <b>{{izbrana}}</b></p>
       <p>Uspešnost: <b>{{podatki[0]}}</b></p>
       <p>Povprečni zaslužek: <b>{{podatki[1]}}</b></p>
       <p>Povprečna izguba: <b>{{podatki[2]}}</b></p>

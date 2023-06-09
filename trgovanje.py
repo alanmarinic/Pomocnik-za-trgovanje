@@ -424,6 +424,8 @@ def stats(id: int):
                     strategy=seznam, 
                     podatki=stats_tuple, 
                     user_id=id, 
+                    izbrana='',
+                    sporocilo='',
                     naslov='Statistika')
 
 @post('/strategy')
@@ -432,13 +434,24 @@ def strategy():
     user_id = repo.dobi_gen_id(app_user, cookie, 'user_name')[0]
 
     strategy = request.forms.strategy
+    seznam = repo.dobi_strategije(user_id)
     stats_tuple = graf.graph_stats(user_id, strategy)
     TEMPLATES.clear()
-    seznam = repo.dobi_strategije(user_id)
+    if strategy == '':
+        return template('stats.html', 
+                    strategy=seznam, 
+                    podatki=stats_tuple, 
+                    user_id=user_id,
+                    izbrana=strategy,
+                    sporocilo='Izberi natanko eno strategijo!',
+                    naslov='Statistika')
+
     return template('stats.html', 
                     strategy=seznam, 
                     podatki=stats_tuple, 
                     user_id=user_id,
+                    izbrana=strategy,
+                    sporocilo='',
                     naslov='Statistika')
 
 #############################################################
@@ -456,15 +469,18 @@ def analyze_main(id: int):
                     strategy=seznam, 
                     podatki=(0, 0, 0, 0, 0, 0), 
                     user_id=id,
+                    izbrana='',
+                    sporocilo='',
                     naslov='Analiza')
 
 @post('/analyze')
 def analyze_f():
     cookie = request.get_cookie('uporabnik')
     user_id = repo.dobi_gen_id(app_user, cookie, 'user_name')[0]
+    strategy = request.forms.strategy
     analiza_stats = graf.analyze(   
         user_id, 
-        request.forms.strategy, 
+        strategy, 
         int(request.forms.duration), 
         int(request.forms.rr), 
         int(request.forms.target), 
@@ -472,10 +488,21 @@ def analyze_f():
         )
     TEMPLATES.clear()
     seznam = repo.dobi_strategije(user_id)
+    if strategy == '':
+        return template('analysis.html',
+                    strategy=seznam, 
+                    podatki=analiza_stats, 
+                    user_id=user_id,
+                    izbrana=strategy,
+                    sporocilo='Izberi natanko eno strategijo!',
+                    naslov='Analiza')
+    
     return template('analysis.html',
                     strategy=seznam, 
                     podatki=analiza_stats, 
                     user_id=user_id,
+                    izbrana=strategy,
+                    sporocilo='',
                     naslov='Analiza')
 
 #############################################################

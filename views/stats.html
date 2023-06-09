@@ -8,6 +8,7 @@
       <form action="{{url('strategy')}}" method="post">
         <label for="strategy">Izberi strategijo:</label>
             <select class="select" name="strategy">
+                <option value="" disabled selected>{{izbrana}}</option>
                 <option value="All">Vsi tradi</option>
                 % for strat in strategy:
                 <option value="{{strat}}">{{strat}}</option>
@@ -15,6 +16,9 @@
             </select><br>
         <input class="gumb" type="submit" value="Potrdi">
       </form>
+    </div>
+    <div>
+      <p>Izbrana strategija:  <b class="opozorilo">{{sporocilo}}</b><b>{{izbrana}}</b></p>
     </div>
     <div>
       <div class="column">
