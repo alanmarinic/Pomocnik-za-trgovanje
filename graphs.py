@@ -238,7 +238,7 @@ class Graf:
         fig = px.line(data, x='date', y='value',
                       labels=dict(date='čas', value='vrednost [$]'),
                       title='Vrednost naložbe')
-        fig.write_html('Views/Graphs/assets.html')
+        fig.write_html('views/graphs/assets.html')
 
 
     def graph_cake(self, user_id: int):
@@ -272,7 +272,7 @@ class Graf:
         fig = px.pie(df, values='vrednost', names='simbol',
                     color_discrete_sequence=px.colors.sequential.Purp_r, 
                     title='Celotni portfolio: ' + str(date.today()))
-        fig.write_html('Views/Graphs/cake.html')
+        fig.write_html('views/graphs/cake.html')
 
 
 
@@ -294,7 +294,7 @@ class Graf:
         fig = px.pie(data, values='wr', names='value', color='value',
                      color_discrete_map={'Win':'darkseagreen', 'Loss':'darksalmon'},
                      title='Win rate strategije ' + strategy)
-        fig.write_html('Views/Graphs/win_rate.html')
+        fig.write_html('views/graphs/win_rate.html')
 
         ''' Pripravi win rate glede na tip L/S in označi št. dobljenih TPjev '''
         ''' Win_by_type: '''
@@ -312,7 +312,7 @@ class Graf:
                     color_continuous_scale= ['darksalmon','darkseagreen', 'olivedrab'],
                     labels=dict(date='tip', value='število'),
                     title='Uspešnost strategije ' + strategy)
-        fig.write_html('Views/Graphs/win_by_type.html')
+        fig.write_html('views/graphs/win_by_type.html')
 
 
     def index_error_fix(self, rate_long: int | None, rate_short: int | None):
@@ -382,7 +382,7 @@ class Graf:
         fig = px.line(df1, x='date', y='pnl', 
                       labels=dict(date='čas', value='pnl [$]'),
                       title='Zaslužek strategije ' + strategy)
-        fig.write_html('Views/Graphs/pnl_graph.html')
+        fig.write_html('views/graphs/pnl_graph.html')
 
 
     def graph_stats(self, user_id: int, strategy: str) -> Tuple[float, float, float, float , float, float, float]:
@@ -440,14 +440,14 @@ class Graf:
         fig = px.pie(data, values='wr', names='value', color='value',
                     color_discrete_map={'Win':'darkseagreen', 'Loss':'darksalmon'},
                     title='Uspešnost strategije ' + strategy)
-        fig.write_html('Views/Graphs/win_rate_anl.html')
+        fig.write_html('views/graphs/win_rate_anl.html')
 
         # Pripavi 3d graf v pnl_3d.html
         fig = px.scatter_3d(df, x='target', y='rr', z='pnl',
               color = 'type',
               color_discrete_map = {'L':'darkseagreen', 'S':'darksalmon'},
               title = 'Profitabilnost strategije ' + strategy)
-        fig.write_html('Views/Graphs/pnl_3d.html')
+        fig.write_html('views/graphs/pnl_3d.html')
         return (w_rate, avg_w, avg_l, avg_rr, avg_tar, avg_dur)
 
 
