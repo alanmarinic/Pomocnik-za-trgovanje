@@ -11,7 +11,9 @@ from re import sub, findall
 from datetime import date
 from pandas import DataFrame
 from dataclasses import fields
+import os
 
+DB_PORT = os.environ.get('POSTGRES_PORT', 5432)
 
 # Ustvarimo generično TypeVar spremenljivko. Dovolimo le naše entitene, ki jih imamo tudi v bazi
 # kot njene vrednosti. Ko dodamo novo entiteno, jo moramo dodati tudi v to spremenljivko.
@@ -27,7 +29,7 @@ T = TypeVar(
 class Repo:
 
     def __init__(self):
-        self.conn = psycopg2.connect(database=auth.db, host=auth.host, user=auth.user, password=auth.password, port=5432)
+        self.conn = psycopg2.connect(database=auth.db, host=auth.host, user=auth.user, password=auth.password, port=DB_PORT)
         self.cur = self.conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
 

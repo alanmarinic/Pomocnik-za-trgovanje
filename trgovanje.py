@@ -25,11 +25,11 @@ graf = Graf()
 # Privzete nastavitve
 SERVER_PORT = os.environ.get('BOTTLE_PORT', 8080)
 RELOADER = os.environ.get('BOTTLE_RELOADER', True)
-DB_PORT = os.environ.get('POSTGRES_PORT', 5432)
+
 
 # Priklop na bazo
-conn = psycopg2.connect(database=db, host=host, user=user, password=password, port=DB_PORT)
-cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor) 
+# conn = psycopg2.connect(database=db, host=host, user=user, password=password, port=DB_PORT)
+# cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor) 
 
 
 @get('/static/<filename:path>')
